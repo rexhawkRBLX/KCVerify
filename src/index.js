@@ -7,7 +7,7 @@ const { GlobalCache } = require('./GlobalCache')
 const config = require('./data/client')
 const updateServer = require('./UpdateServer.js')
 const Util = require('./Util.js')
-
+const PORT = process.env.PORT || 3000;
 // Set up the sharding manager, a helper class that separates handling
 // guilds into grouped processes called Shards.
 const shardingManager = new Discord.ShardingManager(path.join(__dirname, 'Shard.js'), {
