@@ -51,18 +51,16 @@ class UpdateCommand extends Command {
     DiscordServer.clearMemberCache(target.id)
 
     const server = await this.discordBot.getServer(msg.guild.id)
-    if (!(target instanceof Role)) { // They want to update a specific user (roles have .hoist, users do not)
+    if (!(target instanceof Role)) {
       const member = await server.getMember(target.id)
       if (!member) {
         return msg.reply('User not in guild.')
       }
 
       member.verify({ message: msg, skipWelcomeMessage: true })
-    } else if (!this.discordBot.isPremium()) {
-      return msg.reply('Sorry, updating more than one user is only available with RoVer Plus: <https://www.patreon.com/erynlynn>.')
-    } else { // They want to update a whole role (premium feature)
+    } else {
       const roleMembers = target.members.array()
-      const affectedCount = roleMembers.length // # of affected users
+      const affectedCount = roleMembers.length
       const server = await this.discordBot.getServer(msg.guild.id)
 
       if (server.ongoingBulkUpdate) {

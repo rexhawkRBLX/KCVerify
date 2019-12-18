@@ -206,13 +206,6 @@ class DiscordMember {
       }
     }
 
-    if (!this.discordServer.isAuthorized()) {
-      return status({
-        status: false,
-        error: "Sorry, this server isn't authorized to use RoVer Plus. Donate at <https://www.patreon.com/erynlynn> or invite the regular RoVer bot at <https://RoVer.link>."
-      })
-    }
-
     // Check if the user is even in the server
     if (!this.member && !await this.prepareMember()) {
       return status({
@@ -226,23 +219,14 @@ class DiscordMember {
     if (this.user.bot) {
       return status({
         status: false,
-        error: ':robot: RoVer cannot verify bots.'
-      })
-    }
-
-    // Ignore users with this specific role (to give server owners more power)
-    if (this.member.roles.find(role => role.name === 'RoVer Bypass')) {
-      return status({
-        status: false,
-        error: ':octagonal_sign: RoVer cannot act on users with the "RoVer Bypass" role.',
-        nonFatal: true
+        error: ':robot: KCVerify cannot verify bots.'
       })
     }
 
     // Create a warning to append to any errors. In some permission setups, RoVer is reliant on role positioning (specifically if it has administrator or not)
     this.server.members.fetch(this.bot.id, true)
     if (!this.member.manageable) {
-      errorAppend = "\n\nRoVer's position in the role list is below that of this user. Please have a server admin drag RoVer's role above all other roles in order to fix this problem."
+      errorAppend = "\n\nKCVerify's position in the role list is below that of this user. Please have a server admin drag KCVerify's role above all other roles in order to fix this problem."
     }
 
     status(':scroll: Checking the verification registry...')
@@ -319,7 +303,7 @@ class DiscordMember {
             return status({
               status: false,
               nonFatal: true,
-              error: "There was an error while trying to assign the verified role! Ensure RoVer's role is above it." + errorAppend
+              error: "There was an error while trying to assign the verified role! Ensure KCVerify's role is above it." + errorAppend
             })
           }
         }
@@ -335,15 +319,14 @@ class DiscordMember {
             return status({
               status: false,
               nonFatal: true,
-              error: "There was an error while trying to remove the verified role! Ensure RoVer's role is above it." + errorAppend
+              error: "There was an error while trying to remove the verified role! Ensure KCVerify's role is above it." + errorAppend
             })
           }
         }
       }
 
       if (
-        this.discordServer.getSetting('nicknameUsers') &&
-        !this.member.roles.find(role => role.name === 'RoVer Nickname Bypass')
+        this.discordServer.getSetting('nicknameUsers')
       ) {
         const nickname = (await this.getNickname(data)).substring(0, 32)
 
@@ -357,7 +340,7 @@ class DiscordMember {
             return status({
               status: false,
               nonFatal: true,
-              error: this.member.guild.ownerID === this.member.id ? "Sorry, Discord doesn't allow bots to change the server owner's nickname. Please manually update your nickname. Or don't, I'm just an error message." : "RoVer doesn't have permission to change that user's nickname." + errorAppend
+              error: this.member.guild.ownerID === this.member.id ? "Sorry, Discord doesn't allow bots to change the server owner's nickname. Please manually update your nickname. Or don't, I'm just an error message." : "KCVerify doesn't have permission to change that user's nickname." + errorAppend
             })
           }
         }
@@ -403,7 +386,7 @@ class DiscordMember {
           return status({
             status: false,
             nonFatal: true,
-            error: "Something went wrong when checking group membership. It appears the Roblox group API is offline or returning malformed data. It's possible Roblox is down for maintenance or there is something else wrong with Roblox. Please try again later. If this problem is unique or is lasting longer than is expected, please join our support server by saying `!support`."
+            error: "Something went wrong when checking group membership. It appears the Roblox group API is offline or returning malformed data. It's possible Roblox is down for maintenance or there is something else wrong with Roblox. Please try again later. If this problem is unique or is lasting longer than is expected, please join RoVer's support server by saying `!support`."
           })
         }
       }

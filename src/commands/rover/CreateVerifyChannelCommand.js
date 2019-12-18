@@ -68,14 +68,14 @@ class CreateVerifyChannelCommand extends Command {
       this.server.setSetting('verifyChannel', verifyChannel.id)
 
       instructionsChannel.send(
-        stripIndents`This server uses a Roblox verification system. In order to unlock all the features of this server, you'll need to verify your Roblox account with your Discord account!
+        stripIndents`This server uses a modified RoVer verification system. In order to unlock all the features of this server, you'll need to verify your Roblox account with your Discord account!
 
         Visit ${Util.getVerifyLink(msg.guild)} and follow the instructions. Then, say \`${msg.guild.commandPrefix}verify\` in ${verifyChannel.toString()} and it will update you accordingly.`
       )
 
       msg.reply(`Created channels ${verifyChannel} and ${instructionsChannel}. You can delete the default message in the instructions channel and replace it with your own if you wish.`)
     } catch (err) {
-      msg.reply(':no_entry_sign: RoVer does not have permission to create channels in this server.')
+      msg.reply(':no_entry_sign: KCVerify does not have permission to create channels in this server.')
     }
   }
 }

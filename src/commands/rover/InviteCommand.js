@@ -8,7 +8,7 @@ class InviteCommand extends Command {
       name: 'invite',
       properName: 'Invite',
       aliases: ['roverinvite'],
-      description: 'Sends the user an invite link to invite RoVer.',
+      description: 'Sends the user an invite link to invite KCVerify.',
       userPermissions: []
     })
   }
