@@ -24,6 +24,6 @@
     "start": "node src/index.js"
   },
   "engines": {
-    "node": "12.13.1"
+    "node": "10.16.0"
   }
 }
