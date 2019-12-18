@@ -8,6 +8,7 @@ const requestDebug = require('request-debug')
 const SettingProvider = require('./commands/SettingProvider')
 const Util = require('./Util')
 const fs = require('mz/fs')
+const app = require("express")();
 const PORT = process.env.PORT || 3000;
 
 if (config.loud) requestDebug(request, (type, data) => console.log(`${type} ${data.debugId} : ${data.uri || data.statusCode}`))
@@ -36,7 +37,9 @@ class DiscordBot {
       commandPrefix: config.commandPrefix || '!',
       unknownCommandResponse: false
     })
-
+    app.listen(PORT, () => {
+      console.log(`Our app is running on port ${ PORT }`);
+    });
     this.bot.setProvider(new SettingProvider())
 
     // Instantiate the shard's Cache singleton to interface with the main process.
@@ -64,8 +67,8 @@ class DiscordBot {
       this.bot.on('message', this.message.bind(this))
     }
 
-    if (this.isPremium()) {
-      this.bot.dispatcher.addInhibitor(msg =>
+
+    this.bot.dispatcher.addInhibitor(msg =>
         msg.guild &&
          msg.command.name !== 'verify' &&
          !this.authorizedOwners.includes(msg.guild.ownerID)
@@ -81,7 +84,7 @@ class DiscordBot {
           this.authorizedOwners = beforePatrons
         })
       }, 5 * 60 * 1000)
-    }
+
 
     // Register commands
     this.bot.registry
@@ -97,16 +100,8 @@ class DiscordBot {
       })
       .registerCommandsIn(path.join(__dirname, 'commands'))
 
-    this.bot.listen(PORT, () => {
-      console.log(`Our app is running on port ${ PORT }`);
-    });
-
     // Login.
     this.bot.login(process.env.token)
-  }
-
-  isPremium () {
-    return !!config.patreonAccessToken
   }
 
   async updatePatrons (page) {
