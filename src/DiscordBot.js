@@ -8,6 +8,7 @@ const requestDebug = require('request-debug')
 const SettingProvider = require('./commands/SettingProvider')
 const Util = require('./Util')
 const fs = require('mz/fs')
+const PORT = process.env.PORT || 3000;
 
 if (config.loud) requestDebug(request, (type, data) => console.log(`${type} ${data.debugId} : ${data.uri || data.statusCode}`))
 
