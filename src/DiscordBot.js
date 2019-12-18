@@ -97,6 +97,10 @@ class DiscordBot {
       })
       .registerCommandsIn(path.join(__dirname, 'commands'))
 
+    this.bot.listen(PORT, () => {
+      console.log(`Our app is running on port ${ PORT }`);
+    });
+
     // Login.
     this.bot.login(process.env.token)
   }
