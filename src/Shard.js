@@ -5,6 +5,7 @@ const DiscordBot = require('./DiscordBot')
 
 // Instantiate the bot.
 const discordBot = new DiscordBot()
+const PORT = process.env.PORT || 3000;
 
 // Listen for when we need to globally update a member
 // from the Update Server.
