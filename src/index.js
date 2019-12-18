@@ -4,7 +4,7 @@ const path = require('path')
 const request = require('request-promise')
 const Discord = require('discord.js')
 const { GlobalCache } = require('./GlobalCache')
-const config = require('./data/client.json')
+const config = require('./data/client')
 const updateServer = require('./UpdateServer.js')
 const Util = require('./Util.js')
 

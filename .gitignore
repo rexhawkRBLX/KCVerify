@@ -1,4 +1,3 @@
-src/data/*
 .vscode/
 
 # Logs
@@ -86,6 +85,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-src/data/client.json
 
 .env
